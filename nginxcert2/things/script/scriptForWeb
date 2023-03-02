@@ -1,0 +1,9 @@
+#!/bin/bash
+
+rm /volum/www/file.txt
+while true
+do
+	uptime > /volum/www/file.txt
+	echo "///// START /////" >> /volum/www/file.txt
+	sleep 1
+done

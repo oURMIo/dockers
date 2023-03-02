@@ -1,0 +1,7 @@
+.idea
+*/*/certbot/conf/*.conf
+*/*/certbot/conf/*.pem
+*/*/certbot/conf/*/*/*.pem
+*/*/certbot/conf/*/*.conf
+*.json
+

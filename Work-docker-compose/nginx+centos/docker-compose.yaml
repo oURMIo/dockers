@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+   nginx:
+      image: nginx:stable-alpine
+      container_name: nginx
+      ports:
+         - "8080:80"
+      volumes:
+         - volume:/volume
+         - ./things/nginx/www:/volume/nginx/www
+         - ./things/nginx/conf.d:/etc/nginx/conf.d
+
+   server:
+      image: centos:latest
+      container_name: centos
+      volumes:
+         - volume:/volume
+         - ./things/scr:/volume/nginx/www/scr
+      command: [/volume/nginx/www/scr/script]
+volumes:
+   volume:

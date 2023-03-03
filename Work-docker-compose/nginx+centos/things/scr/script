@@ -1,9 +1,0 @@
-#!/bin/bash
-
-rm /volume/nginx/www/file.txt
-while true
-do
-	echo "///// START /////" >> /volume/nginx/www/file.txt
-	uptime > /volume/nginx/www/file.txt
-	sleep 1
-done

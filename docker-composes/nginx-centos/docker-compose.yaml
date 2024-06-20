@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  centos:
+    image: centos:latest
+    volumes:
+      - ./nginx:/usr/share/nginx/html
+      - ./centos/script.sh:/usr/local/bin/script.sh
+    command: sh -c "chmod +x /usr/local/bin/script.sh && /usr/local/bin/script.sh"
+    container_name: centos_container
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx:/usr/share/nginx/html
+    container_name: nginx_container

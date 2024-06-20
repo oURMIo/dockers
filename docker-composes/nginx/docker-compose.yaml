@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  web:
+    image: nginx:latest
+    container_name: simple-nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx/www:/usr/share/nginx/html/www
+      - ./nginx/conf:/etc/nginx/conf.d
+    command: ["nginx-debug", "-g", "daemon off;"]
+    restart: unless-stopped

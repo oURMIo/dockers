@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  ollama-webui:
+    image: ghcr.io/ollama-webui/ollama-webui:main
+    container_name: ollama-webui
+    ports:
+      - "3000:8080"
+    volumes:
+      - ollama-webui:/app/backend/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+    depends_on:
+      - ollama-serv
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  ollama-serv:
+    image: ollama/ollama
+    container_name: ollama-serv
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-serv:/root/.ollama
+    restart: always
+    command: ["sh", "-c", "ollama pull phi3"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  ollama-webui:
+  ollama-serv:

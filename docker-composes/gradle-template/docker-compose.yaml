@@ -1,0 +1,25 @@
+services:
+  gradle:
+    container_name: gradle_container # RENAME
+    image: gradle:latest
+    ports:
+      - "${HOST_PORT}:${HOST_PORT}" # CHANGE TO USE ENV VARIABLE
+    volumes:
+      - ./project:/home/gradle/project
+      - gradle_cache:/home/gradle/.gradle
+    environment:
+      GRADLE_USER_HOME: /home/gradle/.gradle
+    working_dir: /home/gradle/project
+    command: >
+      gradle clean bootRun --no-daemon
+    tty: true
+    stdin_open: true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${HOST_PORT}/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 240s
+
+volumes:
+  gradle_cache:
